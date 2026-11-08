@@ -1,0 +1,9 @@
+# Show-specific knowledge lives HERE, never in code (plan Appendix D).
+# Story-level alias SUGGESTIONS: not applied until the user sets apply=yes in parsed/alias_map.csv.
+# (They reveal plot, e.g. who the bearded stranger is; judge them from the script yourself.)
+story_alias_suggestions:
+  "MYSTERIOUS BEARDED MAN": "ALEXANDER"
+  "THE BEARDED STRANGER": "ALEXANDER"
+  "SCARRED BEARDED MAN": "ALEXANDER"
+  "THE FORMER GROOM": "GERALD"
+  "LADY IN GOLD GOWN": "CLARISSA"

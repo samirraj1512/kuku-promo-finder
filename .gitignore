@@ -1,0 +1,11 @@
+data/
+.cache/
+.env
+parsed/
+candidates/
+scores/
+outputs/
+reports/*.jsonl
+__pycache__/
+*.pyc
+episode-*.txt

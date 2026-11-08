@@ -1,0 +1,57 @@
+run:
+  seed: 7
+  input: data/show1            # folder or zip of episode-NNN-*.txt
+  out: outputs/
+  rubric_version: v1
+
+llm:
+  provider: stub               # stub | groq | gemini | cerebras | openrouter | custom
+  base_url: https://api.groq.com/openai/v1
+  model: "<confirm current model name in provider console>"
+  api_key_env: GROQ_API_KEY
+  temperature: 0
+  json_mode: true
+  rpm: 25
+  tpm: 10000
+  max_calls: 900
+  retries: 2
+  list_models_at_start: true
+
+cuts:
+  min_len: 20
+  max_len: 60
+  len_mode: sum_of_segments
+  target_len_prior: [40, 60]
+  cut_margin_sec: 0.15
+  snap_tolerance_sec: 1.5
+  end_tail_max_sec: 8
+  max_segments: 3
+  time_offset_sec: 0
+
+candidates:
+  min_start_spacing_sec: 2.0
+  stitched: {hook_len: [3, 12], bridge_len: [5, 15], cliff_len: [5, 20]}
+  cross_episode_cap: 0.15
+  baselines: {random: 40, last45: true}
+
+shortlist: {k: 64, max_per_episode: 2, nms_overlap: 0.3}
+
+scoring:
+  weights: {hook: 0.35, cliffhanger: 0.35, clarity: 0.20, intensity: 0.10}
+  gates: {hook_min: 3, cliffhanger_min: 3, confusions_max: 1}
+  pointwise_runs: 2
+  shuffle: true
+
+pairwise: {top_n: 12, both_orders: true}
+
+select:
+  final_n: 30
+  max_per_episode: 2
+  max_overlap: 0.30
+  tiers: {A: 10, B: 10}
+  type_repeat_penalty_after: 3
+
+rules:
+  intensity_stems:
+    high: [scream, shout, fury, furious, panic, desperat, horrif, rage, enrag, sobb, anguish, terrif, hyster, agoniz, livid, shock]
+    low:  [soft, gentle, quiet, whisper, calm, tender, hushed, faint, subdued]
